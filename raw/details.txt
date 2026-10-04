@@ -1,0 +1,148 @@
+== DMI
+sys_vendor: GPD
+product_name: G1619-05
+product_version: Ver.1.0
+board_name: G1619-05
+== Xbox 360 USB (lsusb -v -d 045e:028e)
+  iManufacturer           1  
+  iProduct                2 Game for windows
+  iSerial                 3 7592665E
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass     93 [unknown]
+      bInterfaceProtocol      1 
+== Flydigi USB
+  iManufacturer           1 Flydigi
+  iProduct                2 Flydigi VADER4
+  iSerial                 0 
+      bInterfaceClass         3 Human Interface Device
+      bInterfaceSubClass      0 [unknown]
+      bInterfaceProtocol      0 
+      bInterfaceClass         3 Human Interface Device
+      bInterfaceSubClass      1 Boot Interface Subclass
+      bInterfaceProtocol      2 Mouse
+      bInterfaceClass         3 Human Interface Device
+      bInterfaceSubClass      0 [unknown]
+      bInterfaceProtocol      0 
+      bInterfaceClass         3 Human Interface Device
+      bInterfaceSubClass      0 [unknown]
+      bInterfaceProtocol      0 
+== usb tree
+/:  Bus 001.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/1p, 480M
+    |__ Port 001: Dev 002, If 0, Class=Hub, Driver=hub/4p, 480M
+        |__ Port 001: Dev 003, If 0, Class=Video, Driver=uvcvideo, 480M
+        |__ Port 001: Dev 003, If 1, Class=Video, Driver=uvcvideo, 480M
+        |__ Port 003: Dev 004, If 0, Class=Vendor Specific Class, Driver=[none], 12M
+/:  Bus 002.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/1p, 10000M
+/:  Bus 003.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/5p, 480M
+    |__ Port 001: Dev 005, If 0, Class=Mass Storage, Driver=usb-storage, 480M
+    |__ Port 003: Dev 002, If 0, Class=Vendor Specific Class, Driver=xpad, 12M
+    |__ Port 004: Dev 003, If 0, Class=Human Interface Device, Driver=usbhid, 12M
+    |__ Port 004: Dev 003, If 1, Class=Human Interface Device, Driver=usbhid, 12M
+    |__ Port 004: Dev 003, If 2, Class=Human Interface Device, Driver=usbhid, 12M
+    |__ Port 005: Dev 004, If 0, Class=Wireless, Driver=btusb, 12M
+    |__ Port 005: Dev 004, If 1, Class=Wireless, Driver=btusb, 12M
+/:  Bus 004.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/2p, 10000M
+/:  Bus 005.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/1p, 480M
+/:  Bus 006.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/1p, 10000M
+/:  Bus 007.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/1p, 480M
+    |__ Port 001: Dev 002, If 0, Class=Hub, Driver=hub/4p, 480M
+        |__ Port 001: Dev 003, If 0, Class=Billboard, Driver=[none], 12M
+        |__ Port 004: Dev 004, If 0, Class=Hub, Driver=hub/4p, 480M
+            |__ Port 002: Dev 005, If 0, Class=Audio, Driver=snd-usb-audio, 12M
+            |__ Port 002: Dev 005, If 1, Class=Audio, Driver=snd-usb-audio, 12M
+            |__ Port 002: Dev 005, If 2, Class=Audio, Driver=snd-usb-audio, 12M
+            |__ Port 002: Dev 005, If 3, Class=Audio, Driver=snd-usb-audio, 12M
+            |__ Port 002: Dev 005, If 4, Class=Audio, Driver=snd-usb-audio, 12M
+            |__ Port 002: Dev 005, If 5, Class=Human Interface Device, Driver=usbhid, 12M
+            |__ Port 004: Dev 006, If 0, Class=Hub, Driver=hub/4p, 480M
+                |__ Port 001: Dev 007, If 0, Class=Human Interface Device, Driver=usbhid, 12M
+                |__ Port 001: Dev 007, If 1, Class=Human Interface Device, Driver=usbhid, 12M
+                |__ Port 002: Dev 008, If 0, Class=Human Interface Device, Driver=usbhid, 12M
+                |__ Port 002: Dev 008, If 1, Class=Human Interface Device, Driver=usbhid, 12M
+                |__ Port 002: Dev 008, If 2, Class=Human Interface Device, Driver=usbhid, 12M
+                |__ Port 004: Dev 009, If 0, Class=Hub, Driver=hub/4p, 480M
+                    |__ Port 001: Dev 013, If 0, Class=Human Interface Device, Driver=usbhid, 12M
+                    |__ Port 001: Dev 013, If 1, Class=Human Interface Device, Driver=usbhid, 12M
+                    |__ Port 001: Dev 013, If 2, Class=Human Interface Device, Driver=usbhid, 12M
+                    |__ Port 001: Dev 013, If 3, Class=Human Interface Device, Driver=usbhid, 12M
+                    |__ Port 003: Dev 011, If 0, Class=Audio, Driver=snd-usb-audio, 12M
+                    |__ Port 003: Dev 011, If 1, Class=Audio, Driver=snd-usb-audio, 12M
+                    |__ Port 003: Dev 011, If 2, Class=Audio, Driver=snd-usb-audio, 12M
+                    |__ Port 003: Dev 011, If 3, Class=Human Interface Device, Driver=usbhid, 12M
+                    |__ Port 004: Dev 012, If 0, Class=Human Interface Device, Driver=usbhid, 12M
+                    |__ Port 004: Dev 012, If 1, Class=Human Interface Device, Driver=usbhid, 12M
+                    |__ Port 004: Dev 012, If 2, Class=Human Interface Device, Driver=usbhid, 12M
+                    |__ Port 004: Dev 012, If 3, Class=Human Interface Device, Driver=usbhid, 12M
+/:  Bus 008.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/1p, 10000M
+    |__ Port 001: Dev 002, If 0, Class=Hub, Driver=hub/4p, 5000M
+        |__ Port 002: Dev 003, If 0, Class=Communications, Driver=cdc_ncm, 5000M
+        |__ Port 002: Dev 003, If 1, Class=CDC Data, Driver=cdc_ncm, 5000M
+        |__ Port 004: Dev 004, If 0, Class=Hub, Driver=hub/4p, 5000M
+            |__ Port 004: Dev 006, If 0, Class=Hub, Driver=hub/4p, 5000M
+                |__ Port 004: Dev 007, If 0, Class=Hub, Driver=hub/4p, 5000M
+== event17
+DEVPATH=/devices/pci0000:00/0000:00:08.3/0000:ca:00.0/usb3/3-3/3-3:1.0/input/input22/event17
+DEVNAME=/dev/input/event17
+ID_INPUT=1
+ID_INPUT_JOYSTICK=1
+ID_MODEL_ID=028e
+ID_SERIAL=_Game_for_windows_7592665E
+ID_VENDOR_ID=045e
+ID_PATH=pci-0000:ca:00.0-usb-0:3:1.0
+== event261
+DEVPATH=/devices/pci0000:00/0000:00:08.3/0000:ca:00.4/usb7/7-1/7-1.4/7-1.4.4/7-1.4.4.4/7-1.4.4.4.1/7-1.4.4.4.1:1.0/0003:04B4:2412.0015/input/input49/event261
+DEVNAME=/dev/input/event261
+ID_INPUT=1
+ID_INPUT_JOYSTICK=1
+ID_INPUT_KEY=1
+ID_MODEL_ID=2412
+ID_SERIAL=Flydigi_Flydigi_VADER4
+ID_VENDOR_ID=04b4
+ID_PATH=pci-0000:ca:00.4-usb-0:1.4.4.4.1:1.0
+== event262
+DEVPATH=/devices/pci0000:00/0000:00:08.3/0000:ca:00.4/usb7/7-1/7-1.4/7-1.4.4/7-1.4.4.4/7-1.4.4.4.1/7-1.4.4.4.1:1.1/0003:04B4:2412.0016/input/input50/event262
+DEVNAME=/dev/input/event262
+ID_INPUT=1
+ID_INPUT_MOUSE=1
+ID_MODEL_ID=2412
+ID_SERIAL=Flydigi_Flydigi_VADER4
+ID_VENDOR_ID=04b4
+ID_PATH=pci-0000:ca:00.4-usb-0:1.4.4.4.1:1.1
+== event268
+DEVPATH=/devices/virtual/input/input51/event268
+DEVNAME=/dev/input/event268
+ID_INPUT=1
+ID_INPUT_JOYSTICK=1
+ID_SERIAL=noserial
+== event269
+DEVPATH=/devices/virtual/input/input52/event269
+DEVNAME=/dev/input/event269
+ID_INPUT=1
+ID_INPUT_JOYSTICK=1
+ID_SERIAL=noserial
+== IIO
+name: bmi260
+in_accel_sampling_frequency: 100.000000
+in_anglvel_sampling_frequency: 200.000000
+in_accel_scale: 0.002394
+in_anglvel_scale: 0.001065
+(eval):7: no matches found: /sys/bus/iio/devices/iio:device0/*mount*
+/sys/devices/platform/AMDI0010:02/i2c-2/i2c-BMI0260:00/iio:device0
+MAJOR=236
+MINOR=0
+DEVNAME=iio:device0
+DEVTYPE=iio_device
+crw------- 1 root root 236, 0 ต.ค.   4 13:14 /dev/iio:device0
+== IIO raw sample
+accel_x: 69
+accel_y: -973
+accel_z: -3981
+anglvel_x: 0
+anglvel_y: 8
+anglvel_z: 0
+== udev hwdb accel mount matrix
+IIO_SENSOR_PROXY_TYPE=iio-poll-accel iio-buffer-accel
+== steam virtual pads
+5243 /home/liber/.local/share/Steam/ubuntu12_32/steam -srt-logger-opened
+5417 steam-runtime-launcher-service --alongside-steam
+5501 ./steamwebhelper -nocrashdialog -lang=en_US -cachedir=/home/liber/.local/share/Steam/config/htmlcache -steampid=5243 -buildid=1788652215 -steamid=0 -logdir=/home/liber/.local/share/Steam/logs -uimode=7 -startcount=0 -steamuniverse=Public -realm=Global -clientui=/home/liber/.local/share/Steam/clientui -steampath=/home/liber/.local/share/Steam/ubuntu12_32/steam -launcher=0 --valve-initial-threadpool-size=8 --valve-enable-site-isolation --enable-smooth-scrolling --password-store=basic --log-file=/home/liber/.local/share/Steam/logs/cef_log.txt --disable-quick-menu --disable-component-update --gaia-url=http://disabled.invalid --enable-features=PlatformHEVCDecoderSupport --disable-features=WinRetrieveSuggestionsOnlyOnDemand,SpareRendererForSitePerProcess,DcheckIsFatal,BlockPromptsIfIgnoredOften,WebUsbDeviceDetection,ValveFFmpegAllowLowDelayHEVC

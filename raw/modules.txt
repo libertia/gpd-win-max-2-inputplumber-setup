@@ -1,0 +1,11 @@
+snd_usbmidi_lib        57344  1 snd_usb_audio
+snd_rawmidi            53248  2 snd_usbmidi_lib,snd_ump
+bmi260_i2c             12288  0
+bmi260_core            36864  1 bmi260_i2c
+xpad                   53248  0
+bmi270_i2c             12288  0
+snd                   159744  31 snd_ctl_led,snd_hda_codec_generic,snd_seq,snd_hda_codec_conexant,snd_seq_device,snd_hda_codec_hdmi,snd_hwdep,snd_hda_intel,snd_usb_audio,snd_usbmidi_lib,snd_hda_codec,snd_timer,snd_ump,snd_pcm,snd_rawmidi
+bmi270_core            24576  1 bmi270_i2c
+ff_memless             20480  1 xpad
+industrialio_triggered_buffer    12288  2 bmi270_core,bmi260_core
+industrialio          151552  4 industrialio_triggered_buffer,bmi270_core,kfifo_buf,bmi260_core

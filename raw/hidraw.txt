@@ -1,0 +1,40 @@
+crw-------  1 root root 243,  0 ต.ค.   4 13:14 /dev/hidraw0
+crw-------  1 root root 243,  1 ต.ค.   4 13:14 /dev/hidraw1
+crw-------  1 root root 243, 10 ต.ค.   4 13:15 /dev/hidraw10
+crw-rw----+ 1 root root 243, 11 ต.ค.   4 14:44 /dev/hidraw11
+crw-rw----+ 1 root root 243, 12 ต.ค.   4 14:44 /dev/hidraw12
+crw-rw----+ 1 root root 243, 13 ต.ค.   4 14:44 /dev/hidraw13
+crw-rw----+ 1 root root 243, 14 ต.ค.   4 14:44 /dev/hidraw14
+crw-------  1 root root 243, 15 ต.ค.   4 13:15 /dev/hidraw15
+crw-------  1 root root 243, 16 ต.ค.   4 13:15 /dev/hidraw16
+crw-------  1 root root 243, 17 ต.ค.   4 13:15 /dev/hidraw17
+crw-------  1 root root 243, 18 ต.ค.   4 13:15 /dev/hidraw18
+crw-------  1 root root 243, 19 ต.ค.   4 13:15 /dev/hidraw19
+crw-------  1 root root 243,  2 ต.ค.   4 13:14 /dev/hidraw2
+crw-------  1 root root 243,  3 ต.ค.   4 13:14 /dev/hidraw3
+crw-------  1 root root 243,  4 ต.ค.   4 13:14 /dev/hidraw4
+crw-------  1 root root 243,  5 ต.ค.   4 13:15 /dev/hidraw5
+crw-------  1 root root 243,  6 ต.ค.   4 13:15 /dev/hidraw6
+crw-------  1 root root 243,  7 ต.ค.   4 13:15 /dev/hidraw7
+crw-------  1 root root 243,  8 ต.ค.   4 13:15 /dev/hidraw8
+crw-------  1 root root 243,  9 ต.ค.   4 13:15 /dev/hidraw9
+/sys/class/hidraw/hidraw0: HID_ID=0003:00002F24:00000135 HID_NAME=  Mouse for Windows 
+/sys/class/hidraw/hidraw1: HID_ID=0003:00002F24:00000135 HID_NAME=  Mouse for Windows 
+/sys/class/hidraw/hidraw10: HID_ID=0003:0000046D:0000C098 HID_NAME=Logitech G502 X LIGHTSPEED 
+/sys/class/hidraw/hidraw11: HID_ID=0003:000004B4:00002412 HID_NAME=Flydigi Flydigi VADER4 
+/sys/class/hidraw/hidraw12: HID_ID=0003:000004B4:00002412 HID_NAME=Flydigi Flydigi VADER4 
+/sys/class/hidraw/hidraw13: HID_ID=0003:000004B4:00002412 HID_NAME=Flydigi Flydigi VADER4 
+/sys/class/hidraw/hidraw14: HID_ID=0003:000004B4:00002412 HID_NAME=Flydigi Flydigi VADER4 
+/sys/class/hidraw/hidraw15: HID_ID=0003:00003142:0000A010 HID_NAME=fifine Microphone 
+/sys/class/hidraw/hidraw16: HID_ID=0003:00003434:0000D030 HID_NAME=Keychron  Keychron Link  
+/sys/class/hidraw/hidraw17: HID_ID=0003:00003434:0000D030 HID_NAME=Keychron  Keychron Link  
+/sys/class/hidraw/hidraw18: HID_ID=0003:00003434:0000D030 HID_NAME=Keychron  Keychron Link  
+/sys/class/hidraw/hidraw19: HID_ID=0003:00003434:0000D030 HID_NAME=Keychron  Keychron Link  
+/sys/class/hidraw/hidraw2: HID_ID=0003:00002F24:00000135 HID_NAME=  Mouse for Windows 
+/sys/class/hidraw/hidraw3: HID_ID=0018:00000911:00005288 HID_NAME=PNP0C50:00 0911:5288 
+/sys/class/hidraw/hidraw4: HID_ID=0018:000027C6:00000113 HID_NAME=GXTP7385:00 27C6:0113 
+/sys/class/hidraw/hidraw5: HID_ID=0003:0000054C:00000FA8 HID_NAME=Sony INZONE H9 II 
+/sys/class/hidraw/hidraw6: HID_ID=0003:00003434:00000EA0 HID_NAME=Keychron Keychron K10 HE 
+/sys/class/hidraw/hidraw7: HID_ID=0003:00003434:00000EA0 HID_NAME=Keychron Keychron K10 HE 
+/sys/class/hidraw/hidraw8: HID_ID=0003:0000046D:0000C098 HID_NAME=Logitech G502 X LIGHTSPEED 
+/sys/class/hidraw/hidraw9: HID_ID=0003:0000046D:0000C098 HID_NAME=Logitech G502 X LIGHTSPEED 

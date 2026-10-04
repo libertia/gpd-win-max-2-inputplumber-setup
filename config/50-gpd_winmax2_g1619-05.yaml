@@ -1,0 +1,64 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ShadowBlip/InputPlumber/main/rootfs/usr/share/inputplumber/schema/composite_device_v1.json
+# Local override for this GPD Win Max 2 (DMI product_name G1619-05).
+# Upstream 50-gpd_winmax2.yaml only matches G1619-04 and different USB phys paths,
+# so it never claims this unit. This combines the built-in Xbox 360-mode gamepad,
+# the "Mouse for Windows" back/mode keys and the BMI260 IMU into one virtual
+# Steam Deck controller, which Steam Input sees with gyro.
+#
+# Install: copy to /etc/inputplumber/devices.d/ and restart inputplumber.
+version: 1
+kind: CompositeDevice
+name: GPD WinMax2 G1619-05 (Steam Deck + gyro)
+
+single_source: false
+
+matches:
+  - dmi_data:
+      product_name: G1619-05
+      sys_vendor: GPD
+
+source_devices:
+  # Built-in gamepad, xpad 045e:028e, currently /dev/input/event17
+  - group: gamepad
+    evdev:
+      name: "Microsoft X-Box 360 pad"
+      phys_path: usb-0000:ca:00.0-3/input0
+      handler: event*
+  # Built-in keyboard/mouse interface (back buttons, mode keys), 2f24:0135
+  - group: keyboard
+    evdev:
+      name: "  Mouse for Windows"
+      phys_path: usb-0000:ca:00.0-4/input0
+      handler: event*
+  - group: keyboard
+    evdev:
+      name: "  Mouse for Windows"
+      phys_path: usb-0000:ca:00.0-4/input1
+      handler: event*
+  # BMI260 IMU at /sys/bus/iio/devices/iio:device0
+  - group: imu
+    iio:
+      name: "{i2c-BMI0260:00,bmi260}"
+      # Kernel exposes no mount matrix. Start with identity (same as upstream
+      # Win Max 2). If gyro yaw/pitch come out inverted in Steam's gyro test,
+      # try the GPD Win 4 orientation instead:
+      #   x: [-1, 0, 0]
+      #   y: [0, -1, 0]
+      #   z: [0, 0, 1]
+      mount_matrix:
+        x: [1, 0, 0]
+        y: [0, 1, 0]
+        z: [0, 0, 1]
+
+options:
+  auto_manage: true
+
+# Steam Deck target carries gyro/accel to Steam Input; keyboard + mouse keep
+# the GPD mouse-mode keys working.
+target_devices:
+  - deck
+  - mouse
+  - keyboard
+
+# Same button mapping as upstream Win Max 2 (back buttons, Xbox/menu combos).
+capability_map_id: gpd2

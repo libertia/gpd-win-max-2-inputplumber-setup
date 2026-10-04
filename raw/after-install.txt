@@ -1,0 +1,117 @@
+● inputplumber.service - InputPlumber Service
+     Loaded: loaded (/usr/lib/systemd/system/inputplumber.service; enabled; preset: disabled)
+     Active: active (running) since Sun 2026-10-04 16:21:48 +07; 17s ago
+ Invocation: d8384e50c8d842119e30e4f8cd1c31c9
+   Main PID: 122222 (inputplumber)
+      Tasks: 34 (limit: 57250)
+     Memory: 11.8M (peak: 14.2M)
+        CPU: 3.406s
+     CGroup: /system.slice/inputplumber.service
+             └─122222 /usr/bin/inputplumber
+
+ต.ค. 04 16:21:49 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:49Z INFO  inputplumber::input::manager] Found missing input device, adding source device evdev://event5 to existing composite device: "/org/shadowblip/InputPlumber/CompositeDevice0"
+ต.ค. 04 16:21:49 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:49Z INFO  inputplumber::input::composite_device::targets] [/org/shadowblip/InputPlumber/CompositeDevice0] Setting target devices: [TargetDeviceTypeId { id: "deck", name: "Valve Steam Deck Controller", device_class: Gamepad }, TargetDeviceTypeId { id: "mouse", name: "InputPlumber Mouse", device_class: Mouse }, TargetDeviceTypeId { id: "keyboard", name: "InputPlumber Keyboard", device_class: Keyboard }]
+ต.ค. 04 16:21:49 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:49Z INFO  inputplumber::input::manager] Found missing iio device, adding source device iio://iio:device0 to existing composite device: "/org/shadowblip/InputPlumber/CompositeDevice0"
+ต.ค. 04 16:21:50 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:50Z INFO  inputplumber::input::manager] Gamepad order: ["/org/shadowblip/InputPlumber/CompositeDevice0"]
+total 4
+-rw-r--r-- 1 root root 2096 ต.ค.   4 16:21 50-gpd_winmax2_g1619-05.yaml
+== devices
+error: invalid value 'list' for '<ID>': invalid digit found in string
+
+For more information, try '--help'.
+== busctl
+└─ /org
+  └─ /org/shadowblip
+    └─ /org/shadowblip/InputPlumber
+      ├─ /org/shadowblip/InputPlumber/CompositeDevice0
+      ├─ /org/shadowblip/InputPlumber/Manager
+      └─ /org/shadowblip/InputPlumber/devices
+        ├─ /org/shadowblip/InputPlumber/devices/source
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event0
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event1
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event10
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event11
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event12
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event13
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event14
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event15
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event16
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event17
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event18
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event19
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event2
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event20
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event21
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event22
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event23
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event24
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event25
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event256
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event257
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event258
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event259
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event26
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event260
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event261
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event262
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event263
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event264
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event265
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event266
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event267
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event268
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event269
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event27
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event270
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event28
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event29
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event3
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event30
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event31
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event4
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event5
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event6
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event7
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event8
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/event9
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/hidraw0
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/hidraw1
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/hidraw10
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/hidraw11
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/hidraw12
+        │ ├─ /org/shadowblip/InputPlumber/devices/source/hidraw13
+== journal
+ต.ค. 04 16:21:48 liber-cac-gpd systemd[1]: Starting InputPlumber Service...
+ต.ค. 04 16:21:48 liber-cac-gpd inputplumber[121890]: [2026-10-04T09:21:48Z INFO  inputplumber] Starting InputPlumber v0.81.0
+ต.ค. 04 16:21:48 liber-cac-gpd systemd[1]: Started InputPlumber Service.
+ต.ค. 04 16:21:48 liber-cac-gpd inputplumber[121890]: [2026-10-04T09:21:48Z INFO  inputplumber::input::manager] Started hidraw device discovery thread
+ต.ค. 04 16:21:48 liber-cac-gpd inputplumber[121890]: [2026-10-04T09:21:48Z INFO  inputplumber::input::manager] Started evdev device discovery thread
+ต.ค. 04 16:21:48 liber-cac-gpd systemd[1]: Stopping InputPlumber Service...
+ต.ค. 04 16:21:48 liber-cac-gpd inputplumber[121890]: [2026-10-04T09:21:48Z INFO  inputplumber] Received SIGTERM. Shutting down.
+ต.ค. 04 16:21:48 liber-cac-gpd inputplumber[121890]: [2026-10-04T09:21:48Z ERROR inputplumber::watcher] Error sending event: channel closed
+ต.ค. 04 16:21:48 liber-cac-gpd inputplumber[121890]: [2026-10-04T09:21:48Z ERROR inputplumber::watcher] Error sending event: channel closed
+ต.ค. 04 16:21:48 liber-cac-gpd inputplumber[121890]: [2026-10-04T09:21:48Z ERROR inputplumber::watcher] Error sending event: channel closed
+ต.ค. 04 16:21:48 liber-cac-gpd inputplumber[121890]: [2026-10-04T09:21:48Z ERROR inputplumber::watcher] Error sending event: channel closed
+ต.ค. 04 16:21:48 liber-cac-gpd inputplumber[121890]: [2026-10-04T09:21:48Z INFO  inputplumber] InputPlumber stopped
+ต.ค. 04 16:21:48 liber-cac-gpd systemd[1]: inputplumber.service: Deactivated successfully.
+ต.ค. 04 16:21:48 liber-cac-gpd systemd[1]: Stopped InputPlumber Service.
+ต.ค. 04 16:21:48 liber-cac-gpd systemd[1]: Starting InputPlumber Service...
+ต.ค. 04 16:21:48 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:48Z INFO  inputplumber] Starting InputPlumber v0.81.0
+ต.ค. 04 16:21:48 liber-cac-gpd systemd[1]: Started InputPlumber Service.
+ต.ค. 04 16:21:48 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:48Z INFO  inputplumber::input::manager] Started hidraw device discovery thread
+ต.ค. 04 16:21:48 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:48Z INFO  inputplumber::input::manager] Started evdev device discovery thread
+ต.ค. 04 16:21:49 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:49Z INFO  inputplumber::input::manager] Found a matching input device evdev://event17 in config "/etc/inputplumber/devices.d/50-gpd_winmax2_g1619-05.yaml", creating CompositeDevice
+ต.ค. 04 16:21:49 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:49Z INFO  inputplumber::input::manager] Found matching source device for config "/etc/inputplumber/devices.d/50-gpd_winmax2_g1619-05.yaml"
+ต.ค. 04 16:21:49 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:49Z INFO  inputplumber::input::composite_device] Creating CompositeDevice with config: GPD WinMax2 G1619-05 (Steam Deck + gyro)
+ต.ค. 04 16:21:49 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:49Z INFO  inputplumber::input::composite_device] Loading device profile `Default` from: /usr/share/inputplumber/profiles/default.yaml
+ต.ค. 04 16:21:49 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:49Z INFO  inputplumber::input::manager] Found missing input device, adding source device evdev://event4 to existing composite device: "/org/shadowblip/InputPlumber/CompositeDevice0"
+ต.ค. 04 16:21:49 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:49Z INFO  inputplumber::input::manager] Found missing input device, adding source device evdev://event5 to existing composite device: "/org/shadowblip/InputPlumber/CompositeDevice0"
+ต.ค. 04 16:21:49 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:49Z INFO  inputplumber::input::composite_device::targets] [/org/shadowblip/InputPlumber/CompositeDevice0] Setting target devices: [TargetDeviceTypeId { id: "deck", name: "Valve Steam Deck Controller", device_class: Gamepad }, TargetDeviceTypeId { id: "mouse", name: "InputPlumber Mouse", device_class: Mouse }, TargetDeviceTypeId { id: "keyboard", name: "InputPlumber Keyboard", device_class: Keyboard }]
+ต.ค. 04 16:21:49 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:49Z INFO  inputplumber::input::manager] Found missing iio device, adding source device iio://iio:device0 to existing composite device: "/org/shadowblip/InputPlumber/CompositeDevice0"
+ต.ค. 04 16:21:50 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:50Z INFO  inputplumber::input::manager] Gamepad order: ["/org/shadowblip/InputPlumber/CompositeDevice0"]
+ต.ค. 04 16:21:50 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:50Z INFO  inputplumber::input::source::iio] Detected IMU: bmi260
+ต.ค. 04 16:21:50 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:50Z INFO  inputplumber::drivers::iio_imu::driver] Set sampling_frequency to 200 Hz via channel accel_y
+ต.ค. 04 16:21:50 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:50Z INFO  inputplumber::drivers::iio_imu::driver] Set sampling_frequency to 200 Hz via channel anglvel_x
+ต.ค. 04 16:21:50 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:50Z INFO  inputplumber::input::target::dbus] Output capabilities changed: {ForceFeedbackUpload, ForceFeedback, Haptics(TrackpadRight), ForceFeedbackErase, Haptics(TrackpadLeft)}
+ต.ค. 04 16:21:50 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:50Z WARN  inputplumber::dbus::interface::source::evdev] Failed to get capabilities for source evdev device '/dev/input/event270': Os { code: 2, kind: NotFound, message: "No such file or directory" }
+ต.ค. 04 16:21:50 liber-cac-gpd inputplumber[122222]: [2026-10-04T09:21:50Z WARN  inputplumber::dbus::interface::source::evdev] Failed to get capabilities for source evdev device '/dev/input/event271': Os { code: 2, kind: NotFound, message: "No such file or directory" }
