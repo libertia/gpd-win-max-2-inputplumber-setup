@@ -1,4 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/ShadowBlip/InputPlumber/main/rootfs/usr/share/inputplumber/schema/composite_device_v1.json
+# AI-generated (Claude, by Anthropic). Tested on one GPD Win Max 2 G1619-05; review before use. No warranty.
 # Local override for this GPD Win Max 2 (DMI product_name G1619-05).
 # Upstream 50-gpd_winmax2.yaml only matches G1619-04 and different USB phys paths,
 # so it never claims this unit. This combines the built-in Xbox 360-mode gamepad,

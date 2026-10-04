@@ -1,5 +1,6 @@
 #!/bin/sh
 # Install InputPlumber and the GPD Win Max 2 (G1619-05) Steam Deck + gyro config.
+# AI-generated (Claude, by Anthropic). Tested on one GPD Win Max 2 G1619-05; review before running. No warranty.
 set -e
 cd "$(dirname "$0")"
 pacman -S --needed --noconfirm inputplumber
