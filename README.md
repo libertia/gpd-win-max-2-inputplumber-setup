@@ -75,6 +75,8 @@ Then test the gyro in Steam: Settings > Controller > Steam Deck controller > gyr
 - `install.sh`: installs the package and config, starts the service
 - `REINSTALL.md`: step-by-step rebuild guide with the config embedded
 - `devices.md`: hardware discovery notes
+- `install-hhd.sh`, `verify-hhd.sh`, `config/hhd/10-tdp-fan-only.conf`: optional Handheld Daemon for TDP and fan curve only (see `hhd.md`)
+- `hhd.md`: why and how hhd runs next to InputPlumber
 
 ## Credits
 

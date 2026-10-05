@@ -54,6 +54,56 @@ is required.
 5. **Test in Steam:** Settings > Controller > select the Steam Deck controller >
    gyro calibration/test. Tilt the device and confirm the gyro follows.
 
+## TDP and fan curve with Handheld Daemon (hhd)
+
+hhd handles TDP and the fan curve; InputPlumber keeps the controller. hhd is limited to
+its `adjustor` plugin with a systemd drop-in, so its GPD controller emulation never
+loads. Do this after the InputPlumber steps above.
+
+1. **Install** hhd, its desktop app and the `acpi_call` module that TDP needs:
+
+   ```sh
+   sudo pacman -S --needed hhd hhd-ui acpi_call-dkms
+   sudo modprobe acpi_call
+   ```
+
+2. **Limit hhd to TDP/fan.** Create
+   `/etc/systemd/system/hhd.service.d/10-tdp-fan-only.conf`:
+
+   ```ini
+   [Service]
+   Environment=HHD_PLUGINS=adjustor
+   ```
+
+3. **Start it, then restart InputPlumber:**
+
+   ```sh
+   sudo systemctl disable --now power-profiles-daemon
+   sudo systemctl daemon-reload
+   sudo systemctl enable --now hhd
+   sudo systemctl restart inputplumber
+   ```
+
+   Use `hhd.service` only, not `hhd@<user>.service` (the drop-in does not cover it).
+   With the project folder, `sudo ./install-hhd.sh` does steps 1 to 3.
+
+4. **Check** with `./verify-hhd.sh`, or by hand:
+
+   ```sh
+   journalctl -u hhd -b | grep -E "Found plugin providers|Skipping provider 'gpd_win'"
+   grep -A1 "Vendor=28de Product=1205" /proc/bus/input/devices
+   ```
+
+   Providers should list only `adjustor`, `gpd_win` should be skipped, and the
+   Valve Steam Controller from InputPlumber must still be there. Then re-test gyro in Steam.
+
+5. **Set TDP and fan curve** in the Handheld Daemon app (hhd-ui). Settings are saved
+   in `/etc/hhd/state.yml`. hhd caps this model at 28 W.
+
+- **Undo:** `sudo systemctl disable --now hhd && sudo rm -r /etc/systemd/system/hhd.service.d && sudo systemctl daemon-reload`
+- **If the controller stops working:** `sudo systemctl stop hhd && sudo systemctl restart inputplumber`,
+  then check `systemctl cat hhd` shows the `HHD_PLUGINS=adjustor` line.
+
 ## The config
 
 ```yaml
