@@ -2,7 +2,7 @@
 # AI-generated (Claude, by Anthropic). Tested on one GPD Win Max 2 G1619-05; review before use. No warranty.
 # Back buttons on the G1619-05 send F20 (left) and F21 (right) by default, not the
 # 0/9 that upstream gpd2 expects. Desktops treat F20/F21 as mic mute and touchpad
-# toggle, so map them to Steam Deck back paddles instead.
+# toggle, so map them to the Horipad Steam back paddles (M1/M2) instead.
 #
 # Install: copy to /etc/inputplumber/capability_maps.d/ and restart inputplumber.
 version: 1

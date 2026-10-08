@@ -1,0 +1,12 @@
+# AI-generated (Claude, by Anthropic). Tested on one GPD Win Max 2 G1619-05; review before use. No warranty.
+[Unit]
+Description=Merge GPD Win Max 2 back-button pulses into holds for InputPlumber
+Before=inputplumber.service
+
+[Service]
+ExecStart=/usr/bin/python3 /usr/local/bin/gpd-backbutton-debounce.py
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target

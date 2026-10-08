@@ -6,7 +6,7 @@ FMT = 'llHHi'; SZ = struct.calcsize(FMT)
 names = {}
 for p in glob.glob('/sys/class/input/event*/device/name'):
     n = open(p).read().strip()
-    if n in ('InputPlumber Keyboard', 'Valve Corporation Steam Controller'):
+    if n in ('InputPlumber Keyboard', 'HORI CO.,LTD. HORIPAD STEAM'):
         names[os.open('/dev/input/' + p.split('/')[4], os.O_RDONLY | os.O_NONBLOCK)] = n
 codes = {}
 try:
@@ -23,6 +23,7 @@ while time.time() < end:
     for fd in r:
         data = os.read(fd, SZ * 64)
         for i in range(0, len(data), SZ):
-            _, _, typ, code, val = struct.unpack(FMT, data[i:i + SZ])
-            if typ == 1 and val in (0, 1):
-                print(f"{names[fd]}: {codes.get(code, code)} {'down' if val else 'up'}", flush=True)
+            sec, usec, typ, code, val = struct.unpack(FMT, data[i:i + SZ])
+            if typ == 1:
+                state = {0: 'up', 1: 'down', 2: 'repeat'}.get(val, val)
+                print(f"{sec % 1000 + usec / 1e6:8.3f} {names[fd]}: {codes.get(code, code)} {state}", flush=True)

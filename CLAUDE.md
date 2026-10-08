@@ -1,7 +1,7 @@
 # CLAUDE.md
 
 InputPlumber composite device config that turns the built-in controls of a
-**GPD Win Max 2 (DMI `G1619-05`)** into one virtual **Steam Deck controller** with gyro,
+**GPD Win Max 2 (DMI `G1619-05`)** into one virtual **HORIPAD STEAM controller** with gyro,
 for Steam Input. Published at github.com/libertia/gpd-win-max-2-inputplumber-setup.
 
 ## Hardware (this machine)
@@ -18,8 +18,10 @@ which is why this local config exists.
 
 ## Files
 
-- `config/50-gpd_winmax2_g1619-05.yaml`: the composite device config (targets `deck`, `mouse`, `keyboard`; capability map `gpd_g1619_05`). Validate against upstream `schema/composite_device_v1.json`.
+- `config/50-gpd_winmax2_g1619-05.yaml`: the composite device config (targets `hori-steam`, `mouse`, `keyboard`; capability map `gpd_g1619_05`). Validate against upstream `schema/composite_device_v1.json`.
 - `config/gpd_g1619-05.yaml`: capability map `gpd_g1619_05`. Back buttons send F20 (left) / F21 (right), mapped to LeftPaddle1 / RightPaddle1. Upstream `gpd2` expects 0/9 and doesn't fit this unit.
+- `gpd-backbutton-debounce.py` + `config/gpd-backbutton-debounce.service`: firmware pulses back buttons ~25 Hz while held. Service grabs the `input1` keyboard, merges pulses (60 ms window), re-emits as uinput `MSI WMI hotkeys` / phys `gpd-debounce/input0` (name borrowed: InputPlumber skips virtual devices not on its name whitelist).
+- `config/60-inputplumber-horipad-steam.rules`: uaccess on the virtual Horipad hidraw; without it Steam has no gyro.
 - `capture-keys.py`: run with sudo to see which keys reach the InputPlumber virtual keyboard (unmapped keys pass through there).
 - `install.sh`: installs the package, copies the config to `/etc/inputplumber/devices.d/` and the map to `/etc/inputplumber/capability_maps.d/`, enables and restarts the service. Run with sudo.
 - `README.md`: public GitHub readme, keeps the AI-generated disclaimer near the top.
@@ -32,12 +34,12 @@ which is why this local config exists.
 ```sh
 sudo ./install.sh
 journalctl -u inputplumber -b | grep -E "Creating CompositeDevice|Detected IMU"
-grep -A1 "Vendor=28de Product=1205" /proc/bus/input/devices
+grep -A1 "Vendor=0f0d Product=01ab" /proc/bus/input/devices
 busctl get-property org.shadowblip.InputPlumber /org/shadowblip/InputPlumber/CompositeDevice0 org.shadowblip.Input.CompositeDevice SourceDevicePaths
 ```
 
-Healthy state: `CompositeDevice0` holds the pad (`event13`–`event17`, number varies), `event4`/`event5` (keys) and
-`/dev/iio:device0`, and a `Valve Corporation Steam Controller` (`28de:1205`) exists.
+Healthy state: `CompositeDevice0` holds the pad (`event13`–`event17`, number varies), `event4` (GPD mouse) plus the debounced `MSI WMI hotkeys` keyboard and
+`/dev/iio:device0`, and a `HORI CO.,LTD. HORIPAD STEAM` (`0f0d:01ab`) exists.
 Gyro is checked in Steam > Settings > Controller > gyro calibration.
 
 ## Conventions

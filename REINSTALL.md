@@ -5,7 +5,7 @@ the config is embedded below, so you can rebuild the setup from this page alone.
 
 ## What this does
 
-InputPlumber merges three parts of the GPD into one virtual **Steam Deck controller**
+InputPlumber merges three parts of the GPD into one virtual **HORIPAD STEAM controller**
 that Steam Input sees with gyro:
 
 - built-in gamepad ("Microsoft X-Box 360 pad", USB 045e:028e)
@@ -33,6 +33,17 @@ is required.
    sudo nano /etc/inputplumber/capability_maps.d/gpd_g1619-05.yaml
    ```
 
+   Steam also needs access to the virtual Horipad's hidraw node, or it gets no gyro:
+
+   ```sh
+   echo 'KERNEL=="hidraw*", SUBSYSTEM=="hidraw", KERNELS=="0003:0F0D:01AB.*|0003:0F0D:0196.*", MODE="0660", TAG+="uaccess"' | sudo tee /etc/udev/rules.d/60-inputplumber-horipad-steam.rules
+   sudo udevadm control --reload
+   ```
+
+   The back buttons pulse while held, so a small debounce service sits in front of
+   InputPlumber. It needs the project folder (`gpd-backbutton-debounce.py` and
+   `config/gpd-backbutton-debounce.service`); `sudo ./install.sh` installs it.
+
    (Or, if you backed up this project folder, run `sudo ./install.sh` from it,
    which does steps 1 to 3 at once.)
 
@@ -47,13 +58,13 @@ is required.
 
    ```sh
    journalctl -u inputplumber -b | grep -E "Creating CompositeDevice|Detected IMU"
-   grep -A1 "Vendor=28de Product=1205" /proc/bus/input/devices
+   grep -A1 "Vendor=0f0d Product=01ab" /proc/bus/input/devices
    ```
 
    You should see `Creating CompositeDevice with config: GPD WinMax2 G1619-05`,
-   `Detected IMU: bmi260`, and a `Valve Corporation Steam Controller` input device.
+   `Detected IMU: bmi260`, and a `HORI CO.,LTD. HORIPAD STEAM` input device.
 
-5. **Test in Steam:** Settings > Controller > select the Steam Deck controller >
+5. **Test in Steam:** Settings > Controller > select the HORIPAD STEAM controller >
    gyro calibration/test. Tilt the device and confirm the gyro follows.
 
 ## TDP and fan curve with Handheld Daemon (hhd)
@@ -93,11 +104,11 @@ loads. Do this after the InputPlumber steps above.
 
    ```sh
    journalctl -u hhd -b | grep -E "Found plugin providers|Skipping provider 'gpd_win'"
-   grep -A1 "Vendor=28de Product=1205" /proc/bus/input/devices
+   grep -A1 "Vendor=0f0d Product=01ab" /proc/bus/input/devices
    ```
 
    Providers should list only `adjustor`, `gpd_win` should be skipped, and the
-   Valve Steam Controller from InputPlumber must still be there. Then re-test gyro in Steam.
+   HORIPAD STEAM from InputPlumber must still be there. Then re-test gyro in Steam.
 
 5. **Set TDP and fan curve** in the Handheld Daemon app (hhd-ui). Settings are saved
    in `/etc/hhd/state.yml`. hhd caps this model at 28 W.
@@ -117,12 +128,12 @@ loads. Do this after the InputPlumber steps above.
 # Upstream 50-gpd_winmax2.yaml only matches G1619-04 and different USB phys paths,
 # so it never claims this unit. This combines the built-in Xbox 360-mode gamepad,
 # the "Mouse for Windows" back/mode keys and the BMI260 IMU into one virtual
-# Steam Deck controller, which Steam Input sees with gyro.
+# HORIPAD STEAM controller, which Steam Input sees with gyro.
 #
 # Install: copy to /etc/inputplumber/devices.d/ and restart inputplumber.
 version: 1
 kind: CompositeDevice
-name: GPD WinMax2 G1619-05 (Steam Deck + gyro)
+name: GPD WinMax2 G1619-05 (Horipad Steam + gyro)
 
 single_source: false
 
@@ -145,37 +156,43 @@ source_devices:
       name: "  Mouse for Windows"
       phys_path: "usb-0000:*:00.0-4/input0"
       handler: event*
+  # The keyboard interface (input1) is not read directly: its back buttons pulse
+  # while held, so gpd-backbutton-debounce.py grabs it and re-emits it as this
+  # virtual keyboard. The name is borrowed because InputPlumber only accepts
+  # whitelisted virtual devices; phys_path keeps it specific to the debouncer.
   - group: keyboard
     evdev:
-      name: "  Mouse for Windows"
-      phys_path: "usb-0000:*:00.0-4/input1"
+      name: "MSI WMI hotkeys"
+      phys_path: "gpd-debounce/input0"
       handler: event*
   # BMI260 IMU at /sys/bus/iio/devices/iio:device0
   - group: imu
     iio:
       name: "{i2c-BMI0260:00,bmi260}"
-      # Kernel exposes no mount matrix. Start with identity (same as upstream
-      # Win Max 2). If gyro yaw/pitch come out inverted in Steam's gyro test,
-      # try the GPD Win 4 orientation instead:
+      # Kernel exposes no mount matrix. Upstream Win Max 2 uses identity. The GPD
+      # Win 4 orientation is another option if axes come out inverted:
       #   x: [-1, 0, 0]
       #   y: [0, -1, 0]
       #   z: [0, 0, 1]
+      # With the hori-steam target, identity gave correct pitch but roll and
+      # yaw swapped, so the y and z rows are exchanged, and yaw (y) is negated
+      # because it turned the wrong way after the swap.
       mount_matrix:
         x: [1, 0, 0]
-        y: [0, 1, 0]
-        z: [0, 0, 1]
+        y: [0, 0, -1]
+        z: [0, 1, 0]
 
 options:
   auto_manage: true
 
-# Steam Deck target carries gyro/accel to Steam Input; keyboard + mouse keep
+# Horipad Steam target carries gyro/accel to Steam Input; keyboard + mouse keep
 # the GPD mouse-mode keys working.
 target_devices:
-  - deck
+  - hori-steam
   - mouse
   - keyboard
 
-# Back buttons send F20/F21 on this model; map them to Steam Deck paddles
+# Back buttons send F20/F21 on this model; map them to the Horipad's M1/M2 back paddles
 # (see gpd_g1619-05.yaml, installed to /etc/inputplumber/capability_maps.d/).
 capability_map_id: gpd_g1619_05
 ```
@@ -189,7 +206,7 @@ capability_map_id: gpd_g1619_05
 # AI-generated (Claude, by Anthropic). Tested on one GPD Win Max 2 G1619-05; review before use. No warranty.
 # Back buttons on the G1619-05 send F20 (left) and F21 (right) by default, not the
 # 0/9 that upstream gpd2 expects. Desktops treat F20/F21 as mic mute and touchpad
-# toggle, so map them to Steam Deck back paddles instead.
+# toggle, so map them to the Horipad Steam back paddles (M1/M2) instead.
 #
 # Install: copy to /etc/inputplumber/capability_maps.d/ and restart inputplumber.
 version: 1
