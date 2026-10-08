@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ShadowBlip/InputPlumber/main/rootfs/usr/share/inputplumber/schema/capability_map_v1.json
+# AI-generated (Claude, by Anthropic). Tested on one GPD Win Max 2 G1619-05; review before use. No warranty.
+# Back buttons on the G1619-05 send F20 (left) and F21 (right) by default, not the
+# 0/9 that upstream gpd2 expects. Desktops treat F20/F21 as mic mute and touchpad
+# toggle, so map them to Steam Deck back paddles instead.
+#
+# Install: copy to /etc/inputplumber/capability_maps.d/ and restart inputplumber.
+version: 1
+kind: CapabilityMap
+name: GPD WinMax2 G1619-05
+id: gpd_g1619_05
+
+mapping:
+  - name: Left Paddle
+    source_events:
+      - keyboard: KeyF20
+    target_event:
+      gamepad:
+        button: LeftPaddle1
+  - name: Right Paddle
+    source_events:
+      - keyboard: KeyF21
+    target_event:
+      gamepad:
+        button: RightPaddle1
+
+filtered_events: []

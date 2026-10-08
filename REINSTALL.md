@@ -23,12 +23,14 @@ is required.
    sudo pacman -S inputplumber
    ```
 
-2. **Create the config.** Save the YAML in the next section as
+2. **Create the two config files.** Save the YAML in "The config" and "The back-button map" sections below as
    `/etc/inputplumber/devices.d/50-gpd_winmax2_g1619-05.yaml`:
 
    ```sh
    sudo mkdir -p /etc/inputplumber/devices.d
    sudo nano /etc/inputplumber/devices.d/50-gpd_winmax2_g1619-05.yaml
+   sudo mkdir -p /etc/inputplumber/capability_maps.d
+   sudo nano /etc/inputplumber/capability_maps.d/gpd_g1619-05.yaml
    ```
 
    (Or, if you backed up this project folder, run `sudo ./install.sh` from it,
@@ -106,8 +108,11 @@ loads. Do this after the InputPlumber steps above.
 
 ## The config
 
+`/etc/inputplumber/devices.d/50-gpd_winmax2_g1619-05.yaml`:
+
 ```yaml
 # yaml-language-server: $schema=https://raw.githubusercontent.com/ShadowBlip/InputPlumber/main/rootfs/usr/share/inputplumber/schema/composite_device_v1.json
+# AI-generated (Claude, by Anthropic). Tested on one GPD Win Max 2 G1619-05; review before use. No warranty.
 # Local override for this GPD Win Max 2 (DMI product_name G1619-05).
 # Upstream 50-gpd_winmax2.yaml only matches G1619-04 and different USB phys paths,
 # so it never claims this unit. This combines the built-in Xbox 360-mode gamepad,
@@ -127,22 +132,23 @@ matches:
       sys_vendor: GPD
 
 source_devices:
-  # Built-in gamepad, xpad 045e:028e, currently /dev/input/event17
+  # Built-in gamepad, xpad 045e:028e. The PCI bus number of the USB controller
+  # changes between boots (seen ca:00.0 and c7:00.0), so it is wildcarded.
   - group: gamepad
     evdev:
       name: "Microsoft X-Box 360 pad"
-      phys_path: usb-0000:ca:00.0-3/input0
+      phys_path: "usb-0000:*:00.0-3/input0"
       handler: event*
   # Built-in keyboard/mouse interface (back buttons, mode keys), 2f24:0135
   - group: keyboard
     evdev:
       name: "  Mouse for Windows"
-      phys_path: usb-0000:ca:00.0-4/input0
+      phys_path: "usb-0000:*:00.0-4/input0"
       handler: event*
   - group: keyboard
     evdev:
       name: "  Mouse for Windows"
-      phys_path: usb-0000:ca:00.0-4/input1
+      phys_path: "usb-0000:*:00.0-4/input1"
       handler: event*
   # BMI260 IMU at /sys/bus/iio/devices/iio:device0
   - group: imu
@@ -169,8 +175,43 @@ target_devices:
   - mouse
   - keyboard
 
-# Same button mapping as upstream Win Max 2 (back buttons, Xbox/menu combos).
-capability_map_id: gpd2
+# Back buttons send F20/F21 on this model; map them to Steam Deck paddles
+# (see gpd_g1619-05.yaml, installed to /etc/inputplumber/capability_maps.d/).
+capability_map_id: gpd_g1619_05
+```
+
+## The back-button map
+
+`/etc/inputplumber/capability_maps.d/gpd_g1619-05.yaml` (left back button sends F20, right sends F21):
+
+```yaml
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ShadowBlip/InputPlumber/main/rootfs/usr/share/inputplumber/schema/capability_map_v1.json
+# AI-generated (Claude, by Anthropic). Tested on one GPD Win Max 2 G1619-05; review before use. No warranty.
+# Back buttons on the G1619-05 send F20 (left) and F21 (right) by default, not the
+# 0/9 that upstream gpd2 expects. Desktops treat F20/F21 as mic mute and touchpad
+# toggle, so map them to Steam Deck back paddles instead.
+#
+# Install: copy to /etc/inputplumber/capability_maps.d/ and restart inputplumber.
+version: 1
+kind: CapabilityMap
+name: GPD WinMax2 G1619-05
+id: gpd_g1619_05
+
+mapping:
+  - name: Left Paddle
+    source_events:
+      - keyboard: KeyF20
+    target_event:
+      gamepad:
+        button: LeftPaddle1
+  - name: Right Paddle
+    source_events:
+      - keyboard: KeyF21
+    target_event:
+      gamepad:
+        button: RightPaddle1
+
+filtered_events: []
 ```
 
 ## Troubleshooting
@@ -178,9 +219,9 @@ capability_map_id: gpd2
 - **No composite device created:** check the model with
   `cat /sys/class/dmi/id/product_name` (must be `G1619-05`) and the pad's USB path with
   `grep -A4 'X-Box 360 pad"' /proc/bus/input/devices` (the `P: Phys=` line must be
-  `usb-0000:ca:00.0-3/input0`). A BIOS update or a different kernel can change these;
+  `usb-0000:<bus>:00.0-3/input0`; the bus number varies between boots and is wildcarded). A BIOS update or a different kernel can change the rest;
   edit `matches` / `phys_path` in the config to the new values, then restart the service.
 - **Gyro moves the wrong way:** replace the `mount_matrix` values with the commented
   alternative in the config, then `sudo systemctl restart inputplumber`.
 - **Undo everything:**
-  `sudo systemctl disable --now inputplumber && sudo rm /etc/inputplumber/devices.d/50-gpd_winmax2_g1619-05.yaml`
+  `sudo systemctl disable --now inputplumber && sudo rm /etc/inputplumber/devices.d/50-gpd_winmax2_g1619-05.yaml /etc/inputplumber/capability_maps.d/gpd_g1619-05.yaml`

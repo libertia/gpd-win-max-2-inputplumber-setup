@@ -22,12 +22,12 @@ as a plain Xbox 360 controller with no gyro. This config fixes the match.
 
 | Part | Kernel device | ID |
 |---|---|---|
-| Built-in gamepad | evdev `Microsoft X-Box 360 pad` (`xpad`), phys `usb-0000:ca:00.0-3/input0` | USB `045e:028e` |
-| Back buttons / mode keys | evdev `  Mouse for Windows`, phys `usb-0000:ca:00.0-4/input{0,1}` | USB `2f24:0135` |
+| Built-in gamepad | evdev `Microsoft X-Box 360 pad` (`xpad`), phys `usb-0000:*:00.0-3/input0` | USB `045e:028e` |
+| Back buttons / mode keys | evdev `  Mouse for Windows`, phys `usb-0000:*:00.0-4/input{0,1}` | USB `2f24:0135` |
 | IMU | IIO `bmi260` (`i2c-BMI0260:00`) | Bosch BMI260 |
 
 Output: a virtual `Valve Corporation Steam Controller` (`28de:1205`, Steam Deck),
-plus InputPlumber keyboard and mouse devices. Uses upstream capability map `gpd2`.
+plus InputPlumber keyboard and mouse devices. The two back buttons (which send F20/F21) become the Steam Deck's left and right back paddles.
 
 ## Requirements
 
@@ -45,6 +45,7 @@ or by hand:
 ```sh
 sudo pacman -S inputplumber
 sudo install -Dm644 config/50-gpd_winmax2_g1619-05.yaml /etc/inputplumber/devices.d/50-gpd_winmax2_g1619-05.yaml
+sudo install -Dm644 config/gpd_g1619-05.yaml /etc/inputplumber/capability_maps.d/gpd_g1619-05.yaml
 sudo systemctl enable --now inputplumber
 sudo systemctl restart inputplumber
 ```
@@ -67,11 +68,13 @@ Then test the gyro in Steam: Settings > Controller > Steam Deck controller > gyr
   config to the `P: Phys=` value, then restart the service.
 - **Gyro is inverted:** swap `mount_matrix` for the commented alternative in the config.
 - **Uninstall:**
-  `sudo systemctl disable --now inputplumber && sudo rm /etc/inputplumber/devices.d/50-gpd_winmax2_g1619-05.yaml`
+  `sudo systemctl disable --now inputplumber && sudo rm /etc/inputplumber/devices.d/50-gpd_winmax2_g1619-05.yaml /etc/inputplumber/capability_maps.d/gpd_g1619-05.yaml`
 
 ## Files
 
 - `config/50-gpd_winmax2_g1619-05.yaml`: the composite device config
+- `config/gpd_g1619-05.yaml`: capability map turning the F20/F21 back buttons into Steam back paddles
+- `capture-keys.py`: prints which keys reach InputPlumber's virtual keyboard (run with sudo)
 - `install.sh`: installs the package and config, starts the service
 - `REINSTALL.md`: step-by-step rebuild guide with the config embedded
 - `devices.md`: hardware discovery notes

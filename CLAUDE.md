@@ -6,18 +6,22 @@ for Steam Input. Published at github.com/libertia/gpd-win-max-2-inputplumber-set
 
 ## Hardware (this machine)
 
-- Gamepad: evdev `Microsoft X-Box 360 pad` (`xpad`, USB `045e:028e`), phys `usb-0000:ca:00.0-3/input0`
-- Back buttons / mode keys: evdev `  Mouse for Windows` (two leading spaces, USB `2f24:0135`), phys `usb-0000:ca:00.0-4/input{0,1}`
+- Gamepad: evdev `Microsoft X-Box 360 pad` (`xpad`, USB `045e:028e`), phys `usb-0000:*:00.0-3/input0`
+- Back buttons / mode keys: evdev `  Mouse for Windows` (two leading spaces, USB `2f24:0135`), phys `usb-0000:*:00.0-4/input{0,1}`
 - IMU: IIO `bmi260` (`i2c-BMI0260:00`), `/sys/bus/iio/devices/iio:device0`, no kernel mount matrix
 - Not part of this setup: Flydigi Vader 4 (`04b4:2412`), Steam's own virtual pads (`28de:11ff`)
+
+The USB controller's PCI bus number changes between boots (`ca` vs `c7`), so `phys_path` uses `*` for it.
 
 Upstream `50-gpd_winmax2.yaml` matches only `G1619-04` and `0000:{74,65,73}:00.3` USB paths,
 which is why this local config exists.
 
 ## Files
 
-- `config/50-gpd_winmax2_g1619-05.yaml`: the composite device config (targets `deck`, `mouse`, `keyboard`; capability map `gpd2`). Validate against upstream `schema/composite_device_v1.json`.
-- `install.sh`: installs the package, copies the config to `/etc/inputplumber/devices.d/`, enables and restarts the service. Run with sudo.
+- `config/50-gpd_winmax2_g1619-05.yaml`: the composite device config (targets `deck`, `mouse`, `keyboard`; capability map `gpd_g1619_05`). Validate against upstream `schema/composite_device_v1.json`.
+- `config/gpd_g1619-05.yaml`: capability map `gpd_g1619_05`. Back buttons send F20 (left) / F21 (right), mapped to LeftPaddle1 / RightPaddle1. Upstream `gpd2` expects 0/9 and doesn't fit this unit.
+- `capture-keys.py`: run with sudo to see which keys reach the InputPlumber virtual keyboard (unmapped keys pass through there).
+- `install.sh`: installs the package, copies the config to `/etc/inputplumber/devices.d/` and the map to `/etc/inputplumber/capability_maps.d/`, enables and restarts the service. Run with sudo.
 - `README.md`: public GitHub readme, keeps the AI-generated disclaimer near the top.
 - `REINSTALL.md`: self-contained rebuild guide with the config embedded. Keep its embedded YAML in sync when the config changes.
 - `devices.md`: hardware discovery notes.
@@ -32,7 +36,7 @@ grep -A1 "Vendor=28de Product=1205" /proc/bus/input/devices
 busctl get-property org.shadowblip.InputPlumber /org/shadowblip/InputPlumber/CompositeDevice0 org.shadowblip.Input.CompositeDevice SourceDevicePaths
 ```
 
-Healthy state: `CompositeDevice0` holds `event17` (pad), `event4`/`event5` (keys) and
+Healthy state: `CompositeDevice0` holds the pad (`event13`–`event17`, number varies), `event4`/`event5` (keys) and
 `/dev/iio:device0`, and a `Valve Corporation Steam Controller` (`28de:1205`) exists.
 Gyro is checked in Steam > Settings > Controller > gyro calibration.
 

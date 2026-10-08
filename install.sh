@@ -5,5 +5,6 @@ set -e
 cd "$(dirname "$0")"
 pacman -S --needed --noconfirm inputplumber
 install -Dm644 config/50-gpd_winmax2_g1619-05.yaml /etc/inputplumber/devices.d/50-gpd_winmax2_g1619-05.yaml
+install -Dm644 config/gpd_g1619-05.yaml /etc/inputplumber/capability_maps.d/gpd_g1619-05.yaml
 systemctl enable --now inputplumber
 systemctl restart inputplumber

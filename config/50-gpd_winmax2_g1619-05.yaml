@@ -19,22 +19,23 @@ matches:
       sys_vendor: GPD
 
 source_devices:
-  # Built-in gamepad, xpad 045e:028e, currently /dev/input/event17
+  # Built-in gamepad, xpad 045e:028e. The PCI bus number of the USB controller
+  # changes between boots (seen ca:00.0 and c7:00.0), so it is wildcarded.
   - group: gamepad
     evdev:
       name: "Microsoft X-Box 360 pad"
-      phys_path: usb-0000:ca:00.0-3/input0
+      phys_path: "usb-0000:*:00.0-3/input0"
       handler: event*
   # Built-in keyboard/mouse interface (back buttons, mode keys), 2f24:0135
   - group: keyboard
     evdev:
       name: "  Mouse for Windows"
-      phys_path: usb-0000:ca:00.0-4/input0
+      phys_path: "usb-0000:*:00.0-4/input0"
       handler: event*
   - group: keyboard
     evdev:
       name: "  Mouse for Windows"
-      phys_path: usb-0000:ca:00.0-4/input1
+      phys_path: "usb-0000:*:00.0-4/input1"
       handler: event*
   # BMI260 IMU at /sys/bus/iio/devices/iio:device0
   - group: imu
@@ -61,5 +62,6 @@ target_devices:
   - mouse
   - keyboard
 
-# Same button mapping as upstream Win Max 2 (back buttons, Xbox/menu combos).
-capability_map_id: gpd2
+# Back buttons send F20/F21 on this model; map them to Steam Deck paddles
+# (see gpd_g1619-05.yaml, installed to /etc/inputplumber/capability_maps.d/).
+capability_map_id: gpd_g1619_05
